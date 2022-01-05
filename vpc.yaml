@@ -11,3 +11,16 @@ Resources:
       Tags:
       - Key: Name
         Value: techpit
+
+#=================================
+# サブネットの作成
+#=================================
+  tpSubnet01a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.0.0.0/24
+      Tags:
+      - Key: Name
+        Value: subnet01a
+      VpcId: !Ref tpVPC
