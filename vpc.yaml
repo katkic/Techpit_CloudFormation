@@ -13,6 +13,22 @@ Resources:
         Value: techpit
 
 #=================================
+# インターネットゲートウェイの作成
+#=================================
+  tpInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: techpit
+
+  tpAttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref tpInternetGateway
+      VpcId: !Ref tpVPC
+
+#=================================
 # サブネットの作成
 #=================================
   tpSubnet01a:
