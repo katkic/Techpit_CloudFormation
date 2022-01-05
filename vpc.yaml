@@ -41,6 +41,26 @@ Resources:
         Value: subnet01a
       VpcId: !Ref tpVPC
 
+  tpSubnet02a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.0.1.0/24
+      Tags:
+      - Key: Name
+        Value: subnet02a
+      VpcId: !Ref tpVPC
+
+  tpSubnet03a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.0.2.0/24
+      Tags:
+      - Key: Name
+        Value: subnet03a
+      VpcId: !Ref tpVPC
+
 #=================================
 # ルートテーブルの作成
 #=================================
@@ -49,7 +69,7 @@ Resources:
     Properties:
       Tags:
         - Key: Name
-          Value: techpit01
+          Value: techpit01a
       VpcId: !Ref tpVPC
 
   tpRouteTableAssociation01a:
@@ -64,3 +84,31 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref tpInternetGateway
       RouteTableId: !Ref tpRouteTable01
+
+  tpRouteTable02a:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref tpVPC
+      Tags:
+      - Key: Name
+        Value: techpit02a
+
+  tpRouteTableAssociation02a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref tpSubnet02a
+      RouteTableId: !Ref tpRouteTable02a
+
+  tpRouteTable03a:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref tpVPC
+      Tags:
+      - Key: Name
+        Value: techpit03a
+
+  tpRouteTableAssociation03a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref tpSubnet03a
+      RouteTableId: !Ref tpRouteTable03a
