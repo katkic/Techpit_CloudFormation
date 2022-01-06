@@ -29,6 +29,23 @@ Resources:
       VpcId: !Ref tpVPC
 
 #=================================
+# NATゲートウェイの作成
+#=================================
+  tpEIPNata:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  tpNata:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt tpEIPNata.AllocationId
+      SubnetId: !Ref tpSubnet01a
+      Tags:
+      - Key: Name
+        Value: techpita
+
+#=================================
 # サブネットの作成
 #=================================
   tpSubnet01a:
@@ -98,6 +115,13 @@ Resources:
     Properties:
       SubnetId: !Ref tpSubnet02a
       RouteTableId: !Ref tpRouteTable02a
+
+  tpRoute02a:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      RouteTableId: !Ref tpRouteTable02a
+      NatGatewayId: !Ref tpNata
 
   tpRouteTable03a:
     Type: AWS::EC2::RouteTable
